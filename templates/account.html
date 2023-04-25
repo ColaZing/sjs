@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <style>
+        /* 定义样式 */
+        body {
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .header a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .buttons button {
+            background-color: #00a200;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #00A200FF;
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .search input[type="text"] {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border: none;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .search input[type="submit"] {
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: none;
+            padding: 10px;
+            width: 100px;
+            background-color: #00A200FF;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .search input[type="submit"]:hover {
+            background-color: #00A200FF;
+        }
+
+        .designers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .designer {
+            width: 22%;
+            background-color: #FFF;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+
+        .designer h2 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .designer p {
+            font-size: 14px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .designer button {
+            background-color: #00A200FF;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #FFF;
+            transition: background-color 0.2s ease;
+        }
+
+        .designer button:hover {
+            background-color: #00A200FF;
+        }
+
+        /* 定义左侧选项卡样式 */
+        .nav-tabs {
+            border-bottom: none;
+            margin-top: 30px;
+        }
+
+        .nav-link {
+            background-color: #f9f9f9;
+            border: none;
+            color: rgba(102, 102, 102, 0.75);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-link.active {
+            background-color: #00a200;
+            border-color: #00a200;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-link:hover {
+            background-color: #00a200;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab-content {
+            margin-top: -20px;
+        }
+
+        .form-group label {
+            color: #333;
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            border-radius: 20px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus {
+            border-color: #00a200;
+            box-shadow: 0 0 10px rgba(0, 162, 0, 0.3);
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #00a200;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            transition: background-color 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #007a00;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<!-- 头部 -->
+<div class="header">
+    <div class="links">
+        <a href="#">设计师首页</a>
+        <a href="#">发布任务</a>
+        <a href="#">个人中心</a>
+    </div>
+    <div class="buttons">
+        <button>管理员登录</button>
+        <button>登录</button>
+        <button>注册</button>
+    </div>
+</div>
+<!-- 个人中心主体 -->
+<div class="container-fluid" style="margin-top: 40px">
+    <div class="row">
+        <div style="width: 200px;margin-top: 100px">
+            <!-- 左侧选项卡 -->
+            <ul class="nav nav-tabs flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#profile">个人信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tasks">任务管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- 选项卡内容 -->
+            <div class="tab-content">
+                <!-- 个人信息 -->
+                <div id="profile" class="tab-pane active" style="width: 50%;margin-left: 80px;margin-top: 80px">
+                    <h2>个人信息</h2>
+                    <br>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">手机号</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">擅长领域</label>
+                            <input type="text" class="form-control" id="text">
+                        </div>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </form>
+                </div>
+                <!-- 任务管理 -->
+                <div id="tasks" class="tab-pane " style="margin-left: 80px;margin-top: 80px">
+                    <h2>任务管理</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>任务名称</th>
+                            <th>发布时间</th>
+                            <th>任务状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>任务1</td>
+                            <td>2022-01-01</td>
+                            <td>进行中</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">完成任务</button>
+                                <button type="button" class="btn btn-danger">取消任务</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>任务2</td>
+                            <td>2022-02-01</td>
+                            <td>已完成</td>
+                            <td>
+                                 <button type="button" class="btn btn-primary">完成设计</button>
+                                <button type="button" class="btn btn-danger">取消任务</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>任务3</td>
+                            <td>2022-03-01</td>
+                            <td>待审核</td>
+                            <td>
+                                <button type="button" class="btn btn-danger">取消任务</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 作品管理 -->
+                <div id="works" class="tab-pane" style="margin-left: 80px;margin-top: 80px">
+                    <h2>作品管理</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img class="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">作品1</h5>
+                                    <p class="card-text">上传时间：2022-01-01</p>
+                                    <p class="card-text">作品描述：这是作品1的描述</p>
+                                    <p class="card-text">作品价位：100元</p>
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#worksModal1">修改</a>
+                                    <a href="#" class="btn btn-danger">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 添加Modal -->
+                        <div class="modal fade" id="worksModal1" tabindex="-1" role="dialog"
+                             aria-labelledby="worksModal1Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="worksModal1Label">修改作品1</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="name">作品名称</label>
+                                                <input type="text" class="form-control" id="name"
+                                                       placeholder="请输入作品名称">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date">上传时间</label>
+                                                <input type="date" class="form-control" id="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">作品描述</label>
+                                                <textarea class="form-control" id="description" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">作品价格</label>
+                                                <input type="number" class="form-control" id="price"
+                                                       placeholder="请输入作品价格">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">保存</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal 结束 -->
+
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img class="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">作品2</h5>
+                                    <p class="card-text">上传时间：2022-01-01</p>
+                                    <p class="card-text">作品描述：这是作品2的描述</p>
+                                    <p class="card-text">作品价位：100元</p>
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#worksModal-2">修改</a>
+                                    <a href="#" class="btn btn-danger">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 添加Modal -->
+                        <div class="modal fade" id="worksModal-2" tabindex="-1" role="dialog"
+                             aria-labelledby="worksModal1Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="worksModal1Label">修改作品2</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="name">作品名称</label>
+                                                <input type="text" class="form-control" id="name"
+                                                       placeholder="请输入作品名称">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date">上传时间</label>
+                                                <input type="date" class="form-control" id="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">作品描述</label>
+                                                <textarea class="form-control" id="description" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">作品价格</label>
+                                                <input type="number" class="form-control" id="price"
+                                                       placeholder="请输入作品价格">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">保存</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal 结束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

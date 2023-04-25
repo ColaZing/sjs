@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <style>
+        /* 定义样式 */
+        body {
+            background: url("https://cdn.pixabay.com/photo/2017/03/27/14/44/background-2171784_960_720.jpg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .register-form {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 50px;
+            width: 500px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-form input[type="text"],
+        .register-form input[type="email"],
+        .register-form input[type="password"],
+        .register-form textarea {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-form input[type="submit"] {
+            background-color: #00a200;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFF;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .register-form input[type="submit"]:hover {
+            background-color: #008e00;
+        }
+
+        .register-form label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .register-form textarea {
+            height: 100px;
+        }
+
+        .register-form p {
+            font-size: 14px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        .register-form a {
+            color: #00a200;
+            text-decoration: none;
+        }
+
+        .register-form a:hover {
+            text-decoration: underline;
+        }
+
+        input{
+            margin-top: 13px;
+        }
+
+    </style>
+</head>
+<body>
+<!-- 注册表单 -->
+<div class="container">
+    <form class="register-form">
+        <h1>登录</h1>
+        <label for="username">用户名</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="登录">
+        <p>没有账号？<a href="#">点击注册</a></p>
+        <p>成为设计师？<a href="#">点击注册</a></p>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务大厅</title>
+    <style>
+        /* 定义样式 */
+        body {
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .header a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .buttons button {
+            background-color: #00a200;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #00A200FF;
+        }
+
+        .task-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .task {
+            width: 48%;
+            background-color: #FFF;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            position: relative;
+        }
+
+        .task h2 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .task p {
+            font-size: 14px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .task button {
+            background-color: #00A200FF;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #FFF;
+            transition: background-color 0.2s ease;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .task button:hover {
+            background-color: #00A200FF;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部 -->
+<div class="header">
+    <div class="links">
+        <a href="#">设计师首页</a>
+        <a href="#">发布任务</a>
+        <a href="#">个人中心</a>
+    </div>
+    <div class="buttons">
+        <button>管理员登录</button>
+        <button>登录</button>
+        <button>注册</button>
+    </div>
+</div>
+<!-- 任务列表 -->
+<div class="task-list" style="margin-top: 30px">
+    <div class="task">
+        <h2>任务标题1</h2>
+        <p>雇主信息：雇主1</p>
+        <p>任务需求：任务1的需求说明</p>
+        <p>任务发起时间：2022-01-01</p>
+        <p>任务报价：￥1000</p>
+        <p>任务时间：10天</p>
+        <div class="buttons">
+            <button >接单</button>
+        </div>
+    </div>
+    <div class="task">
+        <h2>任务标题2</h2>
+        <p>雇主信息：雇主2</p>
+        <p>任务需求：任务2的需求说明</p>
+        <p>任务发起时间：2022-02-01</p>
+        <p>任务报价：￥2000</p>
+        <p>任务时间：20天</p>
+        <div class="buttons">
+            <button>接单</button>
+        </div>
+    </div>
+    <div class="task">
+        <h2>任务标题3</h2>
+        <p>雇主信息：雇主3</p>
+        <p>任务需求：任务3的需求说明</p>
+        <p>任务发起时间：2022-03-01</p>
+        <p>任务报价：￥3000</p>
+        <p>任务时间：30天</p>
+        <div class="buttons">
+            <button>接单</button>
+        </div>
+    </div>
+    <div class="task">
+        <h2>任务标题4</h2>
+        <p>雇主信息：雇主4</p>
+        <p>任务需求：任务4的需求说明</p>
+        <p>任务发起时间：2022-04-01</p>
+        <p>任务报价：￥4000</p>
+        <p>任务时间：40天</p>
+        <div class="buttons">
+            <button>接单</button>
+        </div>
+    </div>
+    <!-- 这里可以继续添加任务方块 -->
+</div>
+</body>
+</html>

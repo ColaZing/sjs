@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设计师首页</title>
+    <style>
+        /* 定义样式 */
+        body {
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .header a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .buttons button {
+            background-color: #00a200;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #00A200FF;
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .search input[type="text"] {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border: none;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .search input[type="submit"] {
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: none;
+            padding: 10px;
+            width: 100px;
+            background-color: #00A200FF;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .search input[type="submit"]:hover {
+            background-color: #00A200FF;
+        }
+
+        .designers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .designer {
+            width: 22%;
+            background-color: #FFF;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+
+        .designer h2 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .designer p {
+            font-size: 14px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .designer button {
+            background-color: #00A200FF;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #FFF;
+            transition: background-color 0.2s ease;
+        }
+
+        .designer button:hover {
+            background-color: #00A200FF;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部 -->
+<div class="header">
+    <div class="links">
+        <a href="#">设计师首页</a>
+        <a href="#">发布任务</a>
+        <a href="#">个人中心</a>
+    </div>
+    <div class="buttons">
+        <button>管理员登录</button>
+        <button>登录</button>
+        <button>注册</button>
+    </div>
+</div>
+<!-- 搜索框 -->
+<div class="search">
+    <form action="">
+        <input type="text" placeholder="搜索设计师...">
+        <input type="submit" value="搜索">
+    </form>
+</div>
+<!-- 设计师列表 -->
+<div class="designers">
+    <div class="designer">
+        <h2>设计师1</h2>
+        <p>入职时间：2022-01-01</p>
+        <p>个人讲解：这是设计师1的个人讲解</p>
+        <p>技能说明：技能1，技能2，技能3</p>
+        <button>查看详情</button>
+    </div>
+    <div class="designer">
+        <h2>设计师2</h2>
+        <p>入职时间：2022-02-01</p>
+        <p>个人讲解：这是设计师2的个人讲解</p>
+        <p>技能说明：技能1，技能2，技能3</p>
+        <button>查看详情</button>
+    </div>
+    <div class="designer">
+        <h2>设计师3</h2>
+        <p>入职时间：2022-03-01</p>
+        <p>个人讲解：这是设计师3的个人讲解</p>
+        <p>技能说明：技能1，技能2，技能3</p>
+        <button>查看详情</button>
+    </div>
+    <div class="designer">
+        <h2>设计师4</h2>
+        <p>入职时间：2022-04-01</p>
+        <p>个人讲解：这是设计师4的个人讲解</p>
+        <p>技能说明 ：技能1，技能2，技能3</p>
+        <button>查看详情</button>
+    </div>
+    <!-- 这里可以继续添加设计师方块 -->
+</div>
+</body>
+</html>

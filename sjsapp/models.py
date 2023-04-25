@@ -46,9 +46,11 @@ class SJTask(models.Model):
     # 任务状态
     task_status = models.CharField(choices=task_status_choice, max_length=20, verbose_name='任务状态')
     # 任务发布者
-    task_publisher = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务发布者')
+    task_publisher = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务发布者',
+                                       related_name='published_tasks')
     # 任务接受者
-    task_receiver = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务接受者')
+    task_receiver = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务接受者',
+                                      related_name='received_tasks')
     # 预期天数
     task_expect_day = models.IntegerField(verbose_name='预期天数')
     # 任务金额

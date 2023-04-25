@@ -49,6 +49,10 @@ class SJTask(models.Model):
     task_publisher = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务发布者')
     # 任务接受者
     task_receiver = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务接受者')
+    # 预期天数
+    task_expect_day = models.IntegerField(verbose_name='预期天数')
+    # 任务金额
+    task_money = models.FloatField(verbose_name='任务金额')
     # 任务创建时间
     task_create_time = models.DateTimeField(auto_now_add=True, verbose_name='任务创建时间')
 

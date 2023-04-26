@@ -271,9 +271,11 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#tasks">任务管理</a>
                 </li>
+                {% if user.role == '设计师' %}
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
         <div class="col-md-9">
@@ -358,10 +360,12 @@
                         </tbody>
                     </table>
                 </div>
+
                 <!-- 作品管理 -->
                 <div id="works" class="tab-pane" style="margin-left: 80px;margin-top: 80px">
                     <h2>作品管理</h2>
                     <div class="row">
+                        {% for z in works %}
                         <div class="col-md-4">
                             <div class="card">
                                 <img class="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap">
@@ -413,6 +417,7 @@
                             </div>
                         </div>
                         <!-- Modal 结束 -->
+                        {% endfor %}
 
 
                         <div class="col-md-4">

@@ -212,10 +212,11 @@ def account(request):
     # 获取用户的所有订单
     orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
     orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
-    print(orders_fb)
-    print(orders_js)
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
     if request.method == 'GET':
-        return render(request, 'account.html', {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js})
+        return render(request, 'account.html',
+                      {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works})
 
 
 @csrf_exempt

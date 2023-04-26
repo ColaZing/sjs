@@ -33,5 +33,9 @@ urlpatterns = [
     path('newtask/', views.newtask),
     path('account/', views.account),
     path('edit/', views.edit),
+    path('order/', views.order),
+    path('delworks/', views.delworks),
+    path('editworks/', views.work),
+    path('edittask/', views.edittask),
 
 ]

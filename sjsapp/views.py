@@ -212,11 +212,14 @@ def account(request):
     # 获取用户的所有订单
     orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
     orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
     # 获取用户的全部作品
     works = SJWork.objects.filter(work_designer=user)
+    print(works)
     if request.method == 'GET':
         return render(request, 'account.html',
-                      {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works})
+                      {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works, 'tasks_fb': tasks_fb})
 
 
 @csrf_exempt
@@ -268,4 +271,55 @@ def order(request):
     elif statue == '3':
         order.order_status = '已取消'
         order.save()
+    return HttpResponseRedirect('/account/')
+
+
+@csrf_exempt
+def delworks(request):
+    wid = request.GET.get('wid')
+    work = SJWork.objects.get(id=wid)
+    work.delete()
+    return HttpResponseRedirect('/account/')
+
+
+@csrf_exempt
+def work(request):
+    uid = request.session.get('uid')
+    user = SJUser.objects.get(id=uid)
+    wid = request.POST.get('wid')
+    if wid != 'new':
+        edwork = SJWork.objects.get(id=wid)
+        name = request.POST.get('name')
+        desc = request.POST.get('desc')
+        img = request.FILES.get('img')
+        price = request.POST.get('price')
+        if not price:
+            price = edwork.work_price
+        if not name:
+            name = edwork.work_name
+        if not desc:
+            desc = edwork.work_desc
+        if not img:
+            img = edwork.work_img
+        edwork.work_name = name
+        edwork.work_desc = desc
+        edwork.work_img = img
+        edwork.work_price = price
+        edwork.save()
+    else:
+        name = request.POST.get('name')
+        desc = request.POST.get('desc')
+        img = request.FILES.get('img')
+        price = request.POST.get('price')
+        SJWork.objects.create(work_name=name, work_desc=desc, work_img=img, work_price=price, work_designer=user)
+
+    return HttpResponseRedirect('/account/')
+
+
+@csrf_exempt
+def edittask(request):
+    tid = request.GET.get('tid')
+    task = SJTask.objects.get(id=tid)
+    task.task_status = '已取消'
+    task.save()
     return HttpResponseRedirect('/account/')

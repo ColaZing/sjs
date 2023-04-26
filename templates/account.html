@@ -272,9 +272,9 @@
                     <a class="nav-link" data-toggle="tab" href="#tasks">任务管理</a>
                 </li>
                 {% if user.role == '设计师' %}
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -327,18 +327,42 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% for k in tasks_fb %}
+                            <tr>
+                                <td>{{ k.task_name }}</td>
+                                <td>{{ k.task_create_time }}</td>
+                                <td>{{ k.task_status }}</td>
+                                <td>
+                                    <button onclick="location.href='http://127.0.0.1:8000/edittask/?tid={{ k.id }}'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         {% for i in orders_fb %}
                             <tr>
                                 <td>{{ i.order_task.task_name }}</td>
                                 <td>{{ i.order_task.task_create_time }}</td>
                                 <td>{{ i.order_status }}</td>
                                 <td>
-                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=1'"
-                                            class="btn btn-primary">完成任务
-                                    </button>
-                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
-                                            class="btn btn-danger">取消任务
-                                    </button>
+                                    {% if i.order_status == '已交付' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=1'"
+                                                class="btn btn-primary">完成任务
+                                        </button>
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
+                                    {% if i.order_status == '已完成' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
+                                    {% if i.order_status == '进行中' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -348,12 +372,24 @@
                                 <td>{{ j.order_task.task_create_time }}</td>
                                 <td>{{ j.order_status }}</td>
                                 <td>
-                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=2'"
-                                            class="btn btn-primary">交付任务
-                                    </button>
-                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
-                                            class="btn btn-danger">取消任务
-                                    </button>
+                                    {% if j.order_status == '进行中' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=2'"
+                                                class="btn btn-primary">交付任务
+                                        </button>
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
+                                    {% if j.order_status == '已完成' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
+                                    {% if j.order_status == '已交付' %}
+                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
+                                                class="btn btn-danger">取消任务
+                                        </button>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -366,111 +402,115 @@
                     <h2>作品管理</h2>
                     <div class="row">
                         {% for z in works %}
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img class="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">作品1</h5>
-                                    <p class="card-text">上传时间：2022-01-01</p>
-                                    <p class="card-text">作品描述：这是作品1的描述</p>
-                                    <p class="card-text">作品价位：100元</p>
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#worksModal1">修改</a>
-                                    <a href="#" class="btn btn-danger">删除</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 添加Modal -->
-                        <div class="modal fade" id="worksModal1" tabindex="-1" role="dialog"
-                             aria-labelledby="worksModal1Label" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="worksModal1Label">修改作品1</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="name">作品名称</label>
-                                                <input type="text" class="form-control" id="name"
-                                                       placeholder="请输入作品名称">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="date">上传时间</label>
-                                                <input type="date" class="form-control" id="date">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">作品描述</label>
-                                                <textarea class="form-control" id="description" rows="3"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="price">作品价格</label>
-                                                <input type="number" class="form-control" id="price"
-                                                       placeholder="请输入作品价格">
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">保存</button>
-                                        </form>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="http://127.0.0.1:8000/{{ z.work_img }}"
+                                         alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ z.work_name }}</h5>
+                                        <p class="card-text">上传时间：{{ z.work_create_time }}</p>
+                                        <p class="card-text">作品描述：{{ z.work_desc }}</p>
+                                        <p class="card-text">作品价位：{{ z.work_price }}元</p>
+                                        <a href="#" class="btn btn-primary" data-toggle="modal"
+                                           data-target="#worksModal{{ z.id }}">修改</a>
+                                        <a href="http://127.0.0.1:8000/delworks/?wid={{ z.id }}" class="btn btn-danger">删除</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Modal 结束 -->
+                            <!-- 添加Modal -->
+                            <div class="modal fade" id="worksModal{{ z.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="worksModal1Label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="worksModal1Label">修改{{ z.work_name }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="http://127.0.0.1:8000/editworks/" method="post"
+                                                  enctype="multipart/form-data">
+                                                <input name="wid" type="hidden" value="{{ z.id }}"/>
+                                                <div class="form-group">
+                                                    <label for="name">作品名称</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                           name="name"
+                                                           placeholder="{{ z.work_name }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">作品描述</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="desc"
+                                                              placeholder="{{ z.work_desc }}"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">作品价格</label>
+                                                    <input type="number" class="form-control" id="price" name="price"
+                                                           placeholder="{{ z.work_price }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="img">作品图片</label>
+                                                    <input type="file" class="form-control-file" id="img" name="img">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">保存</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal 结束 -->
                         {% endfor %}
-
-
                         <div class="col-md-4">
                             <div class="card">
-                                <img class="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">作品2</h5>
-                                    <p class="card-text">上传时间：2022-01-01</p>
-                                    <p class="card-text">作品描述：这是作品2的描述</p>
-                                    <p class="card-text">作品价位：100元</p>
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#worksModal-2">修改</a>
-                                    <a href="#" class="btn btn-danger">删除</a>
+                                    <h5 class="card-title">上传作品</h5>
+                                    <a href="#" class="btn btn-primary" data-toggle="modal"
+                                       data-target="#worksModalsc">上传</a>
                                 </div>
                             </div>
                         </div>
                         <!-- 添加Modal -->
-                        <div class="modal fade" id="worksModal-2" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="worksModalsc" tabindex="-1" role="dialog"
                              aria-labelledby="worksModal1Label" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="worksModal1Label">修改作品2</h5>
+                                        <h5 class="modal-title" id="worksModal1Label">上传作品</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form>
+                                        <form action="http://127.0.0.1:8000/editworks/" method="post"
+                                              enctype="multipart/form-data">
+                                            <input name="wid" type="hidden" value="new"/>
                                             <div class="form-group">
                                                 <label for="name">作品名称</label>
                                                 <input type="text" class="form-control" id="name"
-                                                       placeholder="请输入作品名称">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="date">上传时间</label>
-                                                <input type="date" class="form-control" id="date">
+                                                       name="name"
+                                                       placeholder="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="description">作品描述</label>
-                                                <textarea class="form-control" id="description" rows="3"></textarea>
+                                                <textarea class="form-control" id="description" rows="3" name="desc"
+                                                          placeholder=""></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="price">作品价格</label>
-                                                <input type="number" class="form-control" id="price"
-                                                       placeholder="请输入作品价格">
+                                                <input type="number" class="form-control" id="price" name="price"
+                                                       placeholder="">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">保存</button>
+                                            <div class="form-group">
+                                                <label for="img">作品图片</label>
+                                                <input type="file" class="form-control-file" id="img" name="img">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">上传</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal 结束 -->
+
                     </div>
                 </div>
             </div>

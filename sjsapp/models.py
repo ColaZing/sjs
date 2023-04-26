@@ -30,6 +30,7 @@ class SJUser(models.Model):
 
     class Meta:
         verbose_name = '用户管理'
+        verbose_name_plural = verbose_name
 
 
 # 任务表
@@ -64,6 +65,7 @@ class SJTask(models.Model):
 
     class Meta:
         verbose_name = '任务管理'
+        verbose_name_plural = verbose_name
 
 
 # 订单表
@@ -85,6 +87,7 @@ class SJOrder(models.Model):
 
     class Meta:
         verbose_name = '订单管理'
+        verbose_name_plural = verbose_name
 
 
 # 作品表
@@ -104,3 +107,4 @@ class SJWork(models.Model):
 
     class Meta:
         verbose_name = '作品管理'
+        verbose_name_plural = verbose_name

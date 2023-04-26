@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>控制面板</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Theme style -->
+    <link rel="stylesheet"
+          href="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/dist/css/AdminLTE.min.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            {#            创建两个时间选择框#}
+            <form action="http://127.0.0.1:8000/dash/" method="post">
+                开始时间: <input type="datetime-local" name="StartData"/>
+                结束时间: <input type="datetime-local" name="EndData"/>
+                </select>
+                <input type="submit" value="查询"/>
+            </form>
+
+            <br>
+
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ usernum }}</h3>
+
+                            <p>用户总数</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-sm-3">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{ ordernum }}</h3>
+                            <p>订单总数</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-sm-3">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{ total }}</h3>
+
+                            <p>销售总额</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+            </div>
+{#            加入一个表格#}
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>商品名称</th>
+                    <th>订单总额</th>
+                    <th>下单时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.order_task.task_name }}</td>
+                        <td>{{ order.order_amount }}</td>
+                        <td>{{ order.order_create_time }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</body>

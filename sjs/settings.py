@@ -122,3 +122,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# 修改左侧菜单首页设置
+SIMPLEUI_HOME_PAGE = '/dash/'  # 指向页面
+SIMPLEUI_HOME_TITLE = '订单统计' # 首页标题
+SIMPLEUI_HOME_ICON = 'fa fa-code' # 首页图标

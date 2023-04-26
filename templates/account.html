@@ -266,14 +266,26 @@
             <!-- 左侧选项卡 -->
             <ul class="nav nav-tabs flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#profile">个人信息</a>
+                    {% if tz == 'info' %}
+                        <a class="nav-link active" data-toggle="tab" href="#profile">个人信息</a>
+                    {% else %}
+                        <a class="nav-link" data-toggle="tab" href="#profile">个人信息</a>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tasks">任务管理</a>
+                    {% if tz == 'task' %}
+                        <a class="nav-link active" data-toggle="tab" href="#tasks">任务管理</a>
+                    {% else %}
+                        <a class="nav-link" data-toggle="tab" href="#tasks">任务管理</a>
+                    {% endif %}
                 </li>
                 {% if user.role == '设计师' %}
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
+                        {% if tz == 'zp' %}
+                            <a class="nav-link active" data-toggle="tab" href="#works">作品管理</a>
+                        {% else %}
+                            <a class="nav-link" data-toggle="tab" href="#works">作品管理</a>
+                        {% endif %}
                     </li>
                 {% endif %}
             </ul>
@@ -282,40 +294,48 @@
             <!-- 选项卡内容 -->
             <div class="tab-content">
                 <!-- 个人信息 -->
-                <div id="profile" class="tab-pane active" style="width: 50%;margin-left: 80px;margin-top: 80px">
-                    <h2>个人信息</h2>
-                    <br>
-                    <form action="http://127.0.0.1:8000/edit/" method="post">
+                {% if tz == 'info' %}
+                    <div id="profile" class="tab-pane active" style="width: 50%;margin-left: 80px;margin-top: 80px">
+                {% else %}
+                    <div id="profile" class="tab-pane" style="width: 50%;margin-left: 80px;margin-top: 80px">
+                {% endif %}
+                <h2>个人信息</h2>
+                <br>
+                <form action="http://127.0.0.1:8000/edit/" method="post">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" class="form-control" id="name" name="username"
+                               placeholder="{{ user.username }}">
+                        <label for="email">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               placeholder="{{ user.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">手机号</label>
+                        <input type="tel" class="form-control" id="phone" name="phone"
+                               placeholder="{{ user.phone }}">
+                        <label for="phone">地区</label>
+                        <input type="text" class="form-control" id="area" name="area" placeholder="{{ user.area }}">
+                    </div>
+                    {% if user.role == '设计师' %}
                         <div class="form-group">
-                            <label for="name">姓名</label>
-                            <input type="text" class="form-control" id="name" name="username"
-                                   placeholder="{{ user.username }}">
-                            <label for="email">邮箱</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="{{ user.email }}">
+                            <label for="text">技能</label>
+                            <input type="text" class="form-control" id="text" name="skill"
+                                   placeholder="{{ user.skill }}">
+                            <label for="text">个人简介</label>
+                            <textarea type="text" class="form-control" id="text" name="introduction"
+                                      placeholder="{{ user.introduction }}"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">手机号</label>
-                            <input type="tel" class="form-control" id="phone" name="phone"
-                                   placeholder="{{ user.phone }}">
-                            <label for="phone">地区</label>
-                            <input type="text" class="form-control" id="area" name="area" placeholder="{{ user.area }}">
-                        </div>
-                        {% if user.role == '设计师' %}
-                            <div class="form-group">
-                                <label for="text">技能</label>
-                                <input type="text" class="form-control" id="text" name="skill"
-                                       placeholder="{{ user.skill }}">
-                                <label for="text">个人简介</label>
-                                <textarea type="text" class="form-control" id="text" name="introduction"
-                                          placeholder="{{ user.introduction }}"></textarea>
-                            </div>
-                        {% endif %}
-                        <button type="submit" class="btn btn-primary">保存</button>
-                    </form>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </form>
                 </div>
                 <!-- 任务管理 -->
-                <div id="tasks" class="tab-pane " style="margin-left: 80px;margin-top: 80px">
+                {% if tz == 'task' %}
+                    <div id="tasks" class="tab-pane active" style="margin-left: 80px;margin-top: 80px">
+                {% else %}
+                    <div id="tasks" class="tab-pane" style="margin-left: 80px;margin-top: 80px">
+                {% endif %}
                     <h2>任务管理</h2>
                     <table class="table">
                         <thead>
@@ -334,8 +354,8 @@
                                 <td>{{ k.task_status }}</td>
                                 <td>
                                     <button onclick="location.href='http://127.0.0.1:8000/edittask/?tid={{ k.id }}'"
-                                                class="btn btn-danger">取消任务
-                                        </button>
+                                            class="btn btn-danger">取消任务
+                                    </button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -353,11 +373,11 @@
                                                 class="btn btn-danger">取消任务
                                         </button>
                                     {% endif %}
-                                    {% if i.order_status == '已完成' %}
-                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
-                                                class="btn btn-danger">取消任务
-                                        </button>
-                                    {% endif %}
+                                    {#                                    {% if i.order_status == '已完成' %}#}
+                                    {#                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"#}
+                                    {#                                                class="btn btn-danger">取消任务#}
+                                    {#                                        </button>#}
+                                    {#                                    {% endif %}#}
                                     {% if i.order_status == '进行中' %}
                                         <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
                                                 class="btn btn-danger">取消任务
@@ -380,11 +400,11 @@
                                                 class="btn btn-danger">取消任务
                                         </button>
                                     {% endif %}
-                                    {% if j.order_status == '已完成' %}
-                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
-                                                class="btn btn-danger">取消任务
-                                        </button>
-                                    {% endif %}
+                                    {#                                    {% if j.order_status == '已完成' %}#}
+                                    {#                                        <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"#}
+                                    {#                                                class="btn btn-danger">取消任务#}
+                                    {#                                        </button>#}
+                                    {#                                    {% endif %}#}
                                     {% if j.order_status == '已交付' %}
                                         <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
                                                 class="btn btn-danger">取消任务
@@ -396,16 +416,19 @@
                         </tbody>
                     </table>
                 </div>
-
                 <!-- 作品管理 -->
-                <div id="works" class="tab-pane" style="margin-left: 80px;margin-top: 80px">
+                {% if tz == 'zp' %}
+                    <div id="works" class="tab-pane active" style="margin-left: 80px;margin-top: 80px">
+                {% else %}
+                    <div id="works" class="tab-pane" style="margin-left: 80px;margin-top: 80px">
+                {% endif %}
                     <h2>作品管理</h2>
                     <div class="row">
                         {% for z in works %}
                             <div class="col-md-4">
                                 <div class="card">
                                     <img class="card-img-top" src="http://127.0.0.1:8000/{{ z.work_img }}"
-                                         alt="Card image cap">
+                                         alt="Card image cap" style="width: 300px;height: 200px">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ z.work_name }}</h5>
                                         <p class="card-text">上传时间：{{ z.work_create_time }}</p>
@@ -513,9 +536,9 @@
 
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

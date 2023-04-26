@@ -37,5 +37,6 @@ urlpatterns = [
     path('delworks/', views.delworks),
     path('editworks/', views.work),
     path('edittask/', views.edittask),
+    path('dash/', views.dash),
 
 ]

@@ -219,7 +219,8 @@ def account(request):
     print(works)
     if request.method == 'GET':
         return render(request, 'account.html',
-                      {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works, 'tasks_fb': tasks_fb})
+                      {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                       'tasks_fb': tasks_fb,'tz':'info'})
 
 
 @csrf_exempt
@@ -254,11 +255,24 @@ def edit(request):
     user.skill = skill
     user.introduction = introduction
     user.save()
-    return HttpResponseRedirect('/account/')
+    # 获取用户的所有订单
+    orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
+    orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
+    print(works)
+
+    return render(request, 'account.html',
+                  {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                   'tasks_fb': tasks_fb, 'tz': 'info'})
+
 
 
 @csrf_exempt
 def order(request):
+    print('task')
     oid = request.GET.get('oid')
     statue = request.GET.get('statue')
     order = SJOrder.objects.get(id=oid)
@@ -271,7 +285,21 @@ def order(request):
     elif statue == '3':
         order.order_status = '已取消'
         order.save()
-    return HttpResponseRedirect('/account/')
+    uid = request.session.get('uid')
+    user = SJUser.objects.get(id=uid)
+    print(user)
+    # 获取用户的所有订单
+    orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
+    orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
+    print(works)
+
+    return render(request, 'account.html',
+                  {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                   'tasks_fb': tasks_fb, 'tz': 'task'})
 
 
 @csrf_exempt
@@ -279,7 +307,21 @@ def delworks(request):
     wid = request.GET.get('wid')
     work = SJWork.objects.get(id=wid)
     work.delete()
-    return HttpResponseRedirect('/account/')
+    uid = request.session.get('uid')
+    user = SJUser.objects.get(id=uid)
+    print(user)
+    # 获取用户的所有订单
+    orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
+    orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
+    print(works)
+
+    return render(request, 'account.html',
+                  {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                   'tasks_fb': tasks_fb, 'tz': 'zp'})
 
 
 @csrf_exempt
@@ -313,7 +355,21 @@ def work(request):
         price = request.POST.get('price')
         SJWork.objects.create(work_name=name, work_desc=desc, work_img=img, work_price=price, work_designer=user)
 
-    return HttpResponseRedirect('/account/')
+    uid = request.session.get('uid')
+    user = SJUser.objects.get(id=uid)
+    print(user)
+    # 获取用户的所有订单
+    orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
+    orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
+    print(works)
+
+    return render(request, 'account.html',
+                  {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                   'tasks_fb': tasks_fb, 'tz': 'zp'})
 
 
 @csrf_exempt
@@ -322,4 +378,56 @@ def edittask(request):
     task = SJTask.objects.get(id=tid)
     task.task_status = '已取消'
     task.save()
-    return HttpResponseRedirect('/account/')
+    uid = request.session.get('uid')
+    user = SJUser.objects.get(id=uid)
+    print(user)
+    # 获取用户的所有订单
+    orders_fb = SJOrder.objects.filter(order_task__task_publisher=user)
+    orders_js = SJOrder.objects.filter(order_task__task_receiver=user)
+    # 获取用户发起的所有任务，任务状态是待接单
+    tasks_fb = SJTask.objects.filter(task_publisher=user, task_status='待处理')
+    # 获取用户的全部作品
+    works = SJWork.objects.filter(work_designer=user)
+    print(works)
+
+    return render(request, 'account.html',
+                  {'user': user, 'orders_fb': orders_fb, 'orders_js': orders_js, 'works': works,
+                   'tasks_fb': tasks_fb, 'tz': 'task'})
+
+
+@csrf_exempt
+def dash(request):
+    if request.method == 'GET':
+        # 查询订单总数
+        order = SJOrder.objects.all()
+        ordernum = len(order)
+        # 查询订单总额
+        total = 0
+        for i in order:
+            total += i.order_amount
+        # 查询用户总数
+        user = SJUser.objects.all()
+        usernum = len(user)
+        # 获取全部分类
+
+        return render(request, 'dash.html',
+                      {'ordernum': ordernum, 'total': total, 'usernum': usernum,
+                       'orders': order})
+    else:
+        StartData = request.POST.get('StartData')
+        EndData = request.POST.get('EndData')
+        category = request.POST.get('category')
+        # 查询起止时间内category的订单总数
+        order = SJOrder.objects.filter(order_create_time__range=(StartData, EndData))
+        ordernum = len(order)
+        # 查询订单总额
+        total = 0
+        for i in order:
+            total += i.order_amount
+        # 查询用户总数
+        user = SJUser.objects.all()
+        usernum = len(user)
+
+        return render(request, 'dash.html',
+                      {'ordernum': ordernum, 'total': total, 'usernum': usernum,
+                       'orders': order})

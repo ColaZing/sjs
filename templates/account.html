@@ -240,14 +240,23 @@
 <!-- 头部 -->
 <div class="header">
     <div class="links">
-        <a href="#">设计师首页</a>
-        <a href="#">发布任务</a>
-        <a href="#">个人中心</a>
+        <a href="http://127.0.0.1:8000/index/">设计师首页</a>
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/alltasks/">任务大厅</a>
+            <a href="http://127.0.0.1:8000/tasks/">指派任务</a>
+        {% endif %}
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% elif user.role == '雇主' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% endif %}
     </div>
     <div class="buttons">
-        <button>管理员登录</button>
-        <button>登录</button>
-        <button>注册</button>
+        <button onclick="location.href='http://127.0.0.1:8000/admin/'">管理员登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signin/'">登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signup/'">注册</button>
     </div>
 </div>
 <!-- 个人中心主体 -->
@@ -274,21 +283,32 @@
                 <div id="profile" class="tab-pane active" style="width: 50%;margin-left: 80px;margin-top: 80px">
                     <h2>个人信息</h2>
                     <br>
-                    <form>
+                    <form action="http://127.0.0.1:8000/edit/" method="post">
                         <div class="form-group">
                             <label for="name">姓名</label>
-                            <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+                            <input type="text" class="form-control" id="name" name="username"
+                                   placeholder="{{ user.username }}">
                             <label for="email">邮箱</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{ user.email }}">
                         </div>
                         <div class="form-group">
                             <label for="phone">手机号</label>
-                            <input type="tel" class="form-control" id="phone">
+                            <input type="tel" class="form-control" id="phone" name="phone"
+                                   placeholder="{{ user.phone }}">
+                            <label for="phone">地区</label>
+                            <input type="text" class="form-control" id="area" name="area" placeholder="{{ user.area }}">
                         </div>
-                        <div class="form-group">
-                            <label for="text">擅长领域</label>
-                            <input type="text" class="form-control" id="text">
-                        </div>
+                        {% if user.role == '设计师' %}
+                            <div class="form-group">
+                                <label for="text">技能</label>
+                                <input type="text" class="form-control" id="text" name="skill"
+                                       placeholder="{{ user.skill }}">
+                                <label for="text">个人简介</label>
+                                <textarea type="text" class="form-control" id="text" name="introduction"
+                                          placeholder="{{ user.introduction }}"></textarea>
+                            </div>
+                        {% endif %}
                         <button type="submit" class="btn btn-primary">保存</button>
                     </form>
                 </div>
@@ -305,32 +325,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>任务1</td>
-                            <td>2022-01-01</td>
-                            <td>进行中</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">完成任务</button>
-                                <button type="button" class="btn btn-danger">取消任务</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>任务2</td>
-                            <td>2022-02-01</td>
-                            <td>已完成</td>
-                            <td>
-                                 <button type="button" class="btn btn-primary">完成设计</button>
-                                <button type="button" class="btn btn-danger">取消任务</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>任务3</td>
-                            <td>2022-03-01</td>
-                            <td>待审核</td>
-                            <td>
-                                <button type="button" class="btn btn-danger">取消任务</button>
-                            </td>
-                        </tr>
+                        {% for i in orders_fb %}
+                            <tr>
+                                <td>{{ i.order_task.task_name }}</td>
+                                <td>{{ i.order_task.task_create_time }}</td>
+                                <td>{{ i.order_status }}</td>
+                                <td>
+                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=1'"
+                                            class="btn btn-primary">完成任务
+                                    </button>
+                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ i.id }}&statue=3'"
+                                            class="btn btn-danger">取消任务
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for j in orders_js %}
+                            <tr>
+                                <td>{{ j.order_task.task_name }}</td>
+                                <td>{{ j.order_task.task_create_time }}</td>
+                                <td>{{ j.order_status }}</td>
+                                <td>
+                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=2'"
+                                            class="btn btn-primary">交付任务
+                                    </button>
+                                    <button onclick="location.href='http://127.0.0.1:8000/order/?oid={{ j.id }}&statue=3'"
+                                            class="btn btn-danger">取消任务
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

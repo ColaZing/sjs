@@ -20,5 +20,18 @@ from sjsapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.cs),
+    path('', views.index),
+    path('index/', views.index),
+    path('search/', views.search),
+    path('signin/', views.signin),
+    path('signup/', views.signup),
+    path('designsignup/', views.design_signup),
+    path('detail/', views.detail),
+    path('contant/', views.contant),
+    path('tasks/', views.tasks),
+    path('alltasks/', views.alltasks),
+    path('newtask/', views.newtask),
+    path('account/', views.account),
+    path('edit/', views.edit),
+
 ]

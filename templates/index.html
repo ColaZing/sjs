@@ -143,53 +143,43 @@
 <!-- 头部 -->
 <div class="header">
     <div class="links">
-        <a href="#">设计师首页</a>
-        <a href="#">发布任务</a>
-        <a href="#">个人中心</a>
+        <a href="http://127.0.0.1:8000/index/">设计师首页</a>
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/alltasks/">任务大厅</a>
+            <a href="http://127.0.0.1:8000/tasks/">指派任务</a>
+        {% endif %}
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% elif user.role == '雇主' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% endif %}
     </div>
     <div class="buttons">
-        <button>管理员登录</button>
-        <button>登录</button>
-        <button>注册</button>
+        <button onclick="location.href='http://127.0.0.1:8000/admin/'">管理员登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signin/'">登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signup/'">注册</button>
     </div>
 </div>
 <!-- 搜索框 -->
 <div class="search">
-    <form action="">
-        <input type="text" placeholder="搜索设计师...">
+    <form action="http://127.0.0.1:8000/search/" method="post">
+        <input type="text" name="wd" placeholder="搜索设计师...">
         <input type="submit" value="搜索">
     </form>
 </div>
 <!-- 设计师列表 -->
 <div class="designers">
+    {% for i in sj %}
     <div class="designer">
-        <h2>设计师1</h2>
-        <p>入职时间：2022-01-01</p>
-        <p>个人讲解：这是设计师1的个人讲解</p>
-        <p>技能说明：技能1，技能2，技能3</p>
-        <button>查看详情</button>
+        <h2>{{ i.username }}</h2>
+        <p>入职时间：{{ i.create_time }}</p>
+        <p>个人简介：{{ i.introduction }}</p>
+        <p>技能说明：{{ i.skill }}</p>
+        <button onclick="location.href='http://127.0.0.1:8000/detail/?did={{ i.id }}'">查看详情</button>
     </div>
-    <div class="designer">
-        <h2>设计师2</h2>
-        <p>入职时间：2022-02-01</p>
-        <p>个人讲解：这是设计师2的个人讲解</p>
-        <p>技能说明：技能1，技能2，技能3</p>
-        <button>查看详情</button>
-    </div>
-    <div class="designer">
-        <h2>设计师3</h2>
-        <p>入职时间：2022-03-01</p>
-        <p>个人讲解：这是设计师3的个人讲解</p>
-        <p>技能说明：技能1，技能2，技能3</p>
-        <button>查看详情</button>
-    </div>
-    <div class="designer">
-        <h2>设计师4</h2>
-        <p>入职时间：2022-04-01</p>
-        <p>个人讲解：这是设计师4的个人讲解</p>
-        <p>技能说明 ：技能1，技能2，技能3</p>
-        <button>查看详情</button>
-    </div>
+    {% endfor %}
     <!-- 这里可以继续添加设计师方块 -->
 </div>
 </body>

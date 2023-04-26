@@ -172,101 +172,69 @@
         .work button:hover {
             background-color: #00A200FF;
         }
+
+        .zpimg {
+            width: 300px;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
 <!-- 头部 -->
 <div class="header">
     <div class="links">
-        <a href="#">设计师首页</a>
-        <a href="#">发布任务</a>
-        <a href="#">个人中心</a>
+        <a href="http://127.0.0.1:8000/index/">设计师首页</a>
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/alltasks/">任务大厅</a>
+            <a href="http://127.0.0.1:8000/tasks/">指派任务</a>
+        {% endif %}
+        {% if user.role == '设计师' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% elif user.role == '雇主' %}
+            <a href="http://127.0.0.1:8000/newtask/">发布任务</a>
+            <a href="http://127.0.0.1:8000/account/">个人中心</a>
+        {% endif %}
     </div>
     <div class="buttons">
-        <button>管理员登录</button>
-        <button>登录</button>
-        <button>注册</button>
+        <button onclick="location.href='http://127.0.0.1:8000/admin/'">管理员登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signin/'">登录</button>
+        <button onclick="location.href='http://127.0.0.1:8000/signup/'">注册</button>
     </div>
 </div>
 <!-- 设计师信息 -->
 <div class="designer-info">
     <div class="designer-info">
-        <h2>设计师1</h2>
-        <p>入职时间：2022-01-01</p>
+        <h2>{{ designuser.username }}</h2>
+        <p>入职时间：{{ designuser.create_time }}</p>
         <div class="skills">
-            <h3>技能掌握：技能1，技能2，技能3</h3>
+            <h3>技能掌握：{{ designuser.skill }}</h3>
         </div>
-        <div class="buttons">
-            <button>联系Ta</button>
-        </div>
+        {% if user.role == '设计师' %}
+            <div class="buttons">
+                <button onclick="location.href='http://127.0.0.1:8000/contant/?did={{ designuser.id }}'">联系Ta</button>
+            </div>
+        {% elif user.role == '雇主' %}
+            <div class="buttons">
+                <button onclick="location.href='http://127.0.0.1:8000/contant/?did={{ designuser.id }}'">联系Ta</button>
+            </div>
+        {% endif %}
+
         <div class="description">
-            <p>【学历】全日制统招本科，数字媒体技术专业。
-                【思维】
-                1、具备全链路设计思维，良好的洞察力。
-                2、具备交互体验与产品创新思维，能够通过梳理业务流程，找到问题的关键，并且给出合适的解决方案。
-                3、思维活跃，勇于创新并持续提升自我，具备优秀的大局观意识。
-                【多年设计经验】
-                1、8年设计经验，具有较强的同理心。
-                2、有较扎实的UI基本功，VI品牌搭建经验，IP设计，品牌营销设计经验。
-                3、注重品牌在 UI 中的融合，能够制定产品视觉风格定位及UI界面表现，对界面设计、图片处理有深刻理解和丰富经验。
-                4、对用户需求、用户体验及交互设计有自己独到的见解。
-                5、有建立规范与组件库经验。
-                6、有较好的审美水平，重视细节。
-                7、有一些动画、手绘、3D的能力。
-                8、有较强的好奇心，有自己梳理的较为完整的PRD流程文档、交互设计文档。
-                9、能参与产品设计流程和规范的制定。
-                【产品经验：参与过中大型项目】
-                1、有产品从0-1的设计经验，参与过大型项目0-1全过程；参与过中大型的项目设计案例，在中大型项目中独立设计过个别小模块。
-                2、能独立完成规划产品架构、梳理产品需求，完成相关产品原型设计、UI设计及对产品进行用户体验优化迭代，为产品的企业服务和应用场景提供有价值的设计方案。
-                【熟悉开发流程】
-                1、熟悉产品开发流程，了解各岗位职责。
-                2、能即时跟进界面实现效果及交互效果，确保项目的落地效果尽可能接近设计需求。
-                【擅长需求分析】
-                能通过实际场景的用户调研。理解用户的实际需求，分析出用户的需求点，并找到合适的解决方案。
-                【擅长用户体验优化】
-                善于通过对业务了解，发现真实的设计需求，设计痛点，为产品的创新优化提供合适的建议
-                【终身学习者】
-                1、乐于主动学习相关的行业知识并形成自己见解。
-                2、善于学习跨界的各行业知识，为需求分析、体验设计、界面设计提供支持。
-                【具备一定的商业知识】
-                1、具备商业洞察力，了解所有的一些设计目的都是为商业目标服务。
-                2、通过对实际商业目标的了解找合适的设计解决方案。
-                【团队协作】
-                在工作中愿意保持积极沟通，融合团队关系实现工作目标。
-                【设计工具】
-                能使用常见的设计工具如：Axure、Photoshop、Sketch、AE、Pr等，及借助能够熟练运用设计工具清晰直观表达设计意图。</p>
+            <p>{{ designuser.introduction }}</p>
         </div>
     </div>
     <!-- 作品列表 -->
     <div class="designer-works">
-        <div class="work">
-            <img src="https://picsum.photos/300/200" alt="作品图片">
-            <h3>作品标题</h3>
-            <p>上传时间：2022-01-01</p>
-            <p>作品描述：这是作品1的描述</p>
-            <p>案例要价：1000元</p>
-        </div>
-        <div class="work">
-            <img src="https://picsum.photos/300/200" alt="作品图片">
-            <h3>作品标题</h3>
-            <p>上传时间：2022-02-01</p>
-            <p>作品描述：这是作品2的描述</p>
-            <p>案例要价：2000元</p>
-        </div>
-        <div class="work">
-            <img src="https://picsum.photos/300/200" alt="作品图片">
-            <h3>作品标题</h3>
-            <p>上传时间：2022-03-01</p>
-            <p>作品描述：这是作品3的描述</p>
-            <p>案例要价：3000元</p>
-        </div>
-        <div class="work">
-            <img src="https://picsum.photos/300/200" alt="作品图片">
-            <h3>作品标题</h3>
-            <p>上传时间：2022-04-01</p>
-            <p>作品描述：这是作品4的描述</p>
-            <p>案例要价：4000元</p>
-        </div>
+        {% for i in works %}
+            <div class="work">
+                <img src="http://127.0.0.1:8000/{{ i.work_img }}" alt="作品图片">
+                <h3>{{ i.work_name }}</h3>
+                <p>上传时间：{{ i.work_create_time }}</p>
+                <p>作品描述：{{ i.work_desc }}</p>
+                <p>案例要价：{{ i.work_price }}元</p>
+            </div>
+        {% endfor %}
         <!-- 可以继续添加作品方块 -->
 
     </div>

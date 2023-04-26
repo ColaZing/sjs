@@ -85,7 +85,11 @@
             text-decoration: underline;
         }
 
-        input{
+        input {
+            margin-top: 13px;
+        }
+
+        textarea {
             margin-top: 13px;
         }
 
@@ -94,9 +98,9 @@
 <body>
 <!-- 注册表单 -->
 <div class="container">
-    <form class="register-form" action="http://127.0.0.1:8000/signup/" method="post">
-        <h1>雇主注册</h1>
-        {{ error }}
+    <form class="register-form" action="http://127.0.0.1:8000/designsignup/" method="post">
+        <h1>设计师注册</h1>
+        <p>{{ error }}</p>
         <label for="username">用户名</label>
         <input type="text" id="username" name="username" required>
         <label for="password">密码</label>
@@ -109,9 +113,14 @@
         <input type="text" id="area" name="area" required>
         <label for="gender">性别</label>
         <input type="text" id="gender" name="gender" required>
+        <label for="skill">技能掌握</label>
+        <input type="text" id="skill" name="skill" required>
+        <label for="introduction">个人简介</label>
+        <textarea type="text" id="introduction" name="introduction" required></textarea>
         <input type="submit" value="注册">
         <p>已经有账号了？<a href="http://127.0.0.1:8000/signin/">点击登录</a></p>
-        <p>成为设计师？<a href="http://127.0.0.1:8000/designsignup/">点击注册</a></p>
+        <p>成为雇主？<a href="http://127.0.0.1:8000/signup/">点击注册</a></p>
+
     </form>
 </div>
 </body>

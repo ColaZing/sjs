@@ -50,11 +50,15 @@ class SJTask(models.Model):
                                        related_name='published_tasks')
     # 任务接受者
     task_receiver = models.ForeignKey(SJUser, on_delete=models.CASCADE, verbose_name='任务接受者',
-                                      related_name='received_tasks')
+                                      related_name='received_tasks', null=True, blank=True)
     # 预期天数
     task_expect_day = models.IntegerField(verbose_name='预期天数')
     # 任务金额
     task_money = models.FloatField(verbose_name='任务金额')
+    # 联系人
+    task_contact = models.CharField(max_length=20, verbose_name='联系人')
+    # 联系电话
+    task_phone = models.CharField(max_length=11, verbose_name='联系电话')
     # 任务创建时间
     task_create_time = models.DateTimeField(auto_now_add=True, verbose_name='任务创建时间')
 
@@ -94,7 +98,7 @@ class SJWork(models.Model):
     # 作品创建时间
     work_create_time = models.DateTimeField(auto_now_add=True, verbose_name='作品创建时间')
     # 作品图片
-    work_img = models.ImageField(upload_to='work_img', verbose_name='作品图片')
+    work_img = models.ImageField(upload_to='templates/assets', verbose_name='作品图片')
     # 案例要价
     work_price = models.FloatField(verbose_name='案例要价')
 

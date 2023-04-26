@@ -94,15 +94,16 @@
 <body>
 <!-- 注册表单 -->
 <div class="container">
-    <form class="register-form">
+    <form class="register-form" action="http://127.0.0.1:8000/signin/" method="post">
         <h1>登录</h1>
+        {{ error }}
         <label for="username">用户名</label>
-        <input type="email" id="email" name="email" required>
+        <input type="text" id="username" name="username" required>
         <label for="password">密码</label>
         <input type="password" id="password" name="password" required>
         <input type="submit" value="登录">
-        <p>没有账号？<a href="#">点击注册</a></p>
-        <p>成为设计师？<a href="#">点击注册</a></p>
+        <p>没有账号？<a href="http://127.0.0.1:8000/signup/">点击注册</a></p>
+        <p>成为设计师？<a href="http://127.0.0.1:8000/designsignup/">点击注册</a></p>
     </form>
 </div>
 </body>
